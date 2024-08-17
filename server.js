@@ -1,13 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 const { MongoClient: e, ServerApiVersion: res } = require("mongodb");
-require("dotenv/config");
-	password = process.env.Password,
 	express = require("express"),
 	app = express();
 let cors = require("cors");
 app.use(express.json()), app.use(cors());
-const Port = process.env.PORT || 8080;
 app.listen(Port, () => console.log("Server is running on port: " + Port)),
 	app.get("/gg", (req, res) => {
 		res.json("gg");
