@@ -1,4 +1,3 @@
-const path = require("path");
 const { MongoClient: e, ServerApiVersion: res } = require("mongodb");
 (express = require("express")), (app = express());
 let cors = require("cors");
@@ -65,24 +64,6 @@ run().catch(console.dir),
 					valid: false,
 				});
 	});
-
-app.get("/script", (req, res) => {
-	fs.readFile(path.join(__dirname, "niggas.js"), (err, data) => {
-		if (err) {
-			res.writeHead(500, {
-				"Content-Type": "text/plain",
-			});
-			res.end("Internal Server Error");
-			return;
-		}
-
-		// Set the response headers and send the file content
-		res.writeHead(200, {
-			"Content-Type": "text/javascript",
-		});
-		res.end(data);
-	});
-});
 
 function encrypt(text, key) {
 	return [...text]
