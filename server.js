@@ -1,11 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 const { MongoClient: e, ServerApiVersion: res } = require("mongodb");
-	express = require("express"),
-	app = express();
+(express = require("express")), (app = express());
 let cors = require("cors");
 app.use(express.json()), app.use(cors());
-app.listen(Port, () => console.log("Server is running on port: " + Port)),
+app.listen(8080, () => console.log("Server is running on port: " + 8080)),
 	app.get("/gg", (req, res) => {
 		res.json("gg");
 	});
@@ -20,7 +19,7 @@ async function run() {
 	await client.connect();
 }
 async function checkKey(key, req) {
-	if (!req.body.k) return 
+	if (!req.body.k) return;
 
 	let reqIP = req.headers["true-client-ip"],
 		dbInfo = await client.db("script").collection("keys").findOne({
@@ -67,8 +66,6 @@ run().catch(console.dir),
 					valid: false,
 				});
 	});
-
-
 
 app.get("/script", (req, res) => {
 	fs.readFile(path.join(__dirname, "niggas.js"), (err, data) => {
