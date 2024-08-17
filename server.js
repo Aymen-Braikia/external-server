@@ -1,14 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 const { MongoClient: e, ServerApiVersion: res } = require("mongodb");
-
-const { Client: s, IntentsBitField: t, EmbedBuilder: a } = require("discord.js"),
+require("dotenv/config");
 	password = process.env.Password,
 	express = require("express"),
 	app = express();
 let cors = require("cors");
 app.use(express.json()), app.use(cors());
-const Port = 8080;
+const Port = process.env.PORT || 8080;
 app.listen(Port, () => console.log("Server is running on port: " + Port)),
 	app.get("/gg", (req, res) => {
 		res.json("gg");
@@ -24,27 +23,8 @@ async function run() {
 	await client.connect();
 }
 async function checkKey(key, req) {
-	if (!req.body.k) return sendMsg("no key was passed", channel2), !1;
-	// if (!req.body.c) return sendMsg("no cookie was passed", channel2), !1;
-	try {
-		let s = new a()
-			.setColor("#0099ff")
-			.setTitle("Client Information")
-			.setDescription("Attempt to login.")
-			.addFields({
-				name: "key",
-				value: key,
-			})
-			.setTimestamp();
-		sendMsg(
-			{
-				embeds: [s],
-			},
-			channel2
-		);
-	} catch (t) {
-		sendMsg(`error: ${t}`, channel2);
-	}
+	if (!req.body.k) return 
+
 	let reqIP = req.headers["true-client-ip"],
 		dbInfo = await client.db("script").collection("keys").findOne({
 			key: key,
@@ -72,52 +52,8 @@ async function checkKey(key, req) {
 				)),
 		dbInfo)
 	)
-		try {
-			let i = "name was undefined";
-			try {
-				i = req.body.c
-					.split(";")
-					.find((e) => e.trim().startsWith("starve_nickname"))
-					.slice(17);
-			} catch (l) {}
-			let d = new a()
-				.setColor("#0099ff")
-				.setTitle("Client Information")
-				.setDescription("The client has logged in successfully.")
-				.addFields(
-					{
-						name: "Database Name",
-						value: dbInfo.name,
-					},
-					{
-						name: "In-game Name",
-						value: "" !== i || i ? i : 'No Name Was Set ("")',
-					},
-					{
-						name: "Key",
-						value: dbInfo.key,
-					},
-					{
-						name: "IP",
-						value: reqIP || "could not get ip",
-					}
-				)
-				.setTimestamp();
-			sendMsg(
-				{
-					embeds: [d],
-				},
-				channel1
-			);
-		} catch (g) {
-			(r = !0), sendMsg(`we have an error:${g}`, channel2);
-		}
-	if (dbInfo.ip.length > 0 && !dbInfo.flexible)
-		if (dbInfo.ip[dbInfo.ip.length - 1])
-			if (dbInfo.ip[dbInfo.ip.length - 1] !== reqIP) {
-				sendMsg("Different Client IP detected \nname:" + dbInfo.name, channel2);
-				return false;
-			}
+		if (dbInfo.ip.length > 0 && !dbInfo.flexible)
+			if (dbInfo.ip[dbInfo.ip.length - 1]) if (dbInfo.ip[dbInfo.ip.length - 1] !== reqIP) return false;
 	return !!dbInfo && !r;
 }
 run().catch(console.dir),
@@ -134,26 +70,8 @@ run().catch(console.dir),
 					valid: false,
 				});
 	});
-const bot = new s({
-	intents: [t.Flags.Guilds, t.Flags.GuildMessages],
-});
-bot.on("ready", () => {
-	console.log(`Logged in as ${bot.user.tag}!`);
-});
-let channelId1 = "1238879390306271234",
-	channelId2 = "1238907048217936014",
-	channel1 = null,
-	channel2 = null;
 
-function sendMsg(e, res) {
-	res.send(e);
-}
-bot.login("MTIzODg3OTA2NjA2NTQ2OTU1Mg.G_FFSj.FaU2QNuaMy72xYVA7I0ZRzh29Pw6g96zIw_wus"),
-	bot.on("ready", (e) => {
-		(channel1 = bot.channels.cache.get(channelId1)),
-			(channel2 = bot.channels.cache.get(channelId2)),
-			sendMsg("Bot is online \uD83D\uDC80", channel1);
-	});
+
 
 app.get("/script", (req, res) => {
 	fs.readFile(path.join(__dirname, "niggas.js"), (err, data) => {
