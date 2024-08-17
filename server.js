@@ -1,4 +1,3 @@
-const fs = require("fs");
 const path = require("path");
 const { MongoClient: e, ServerApiVersion: res } = require("mongodb");
 (express = require("express")), (app = express());
