@@ -24,10 +24,9 @@ async function checkKey(key, req) {
 			key: key,
 		});
 	if (!dbInfo)
-		(dbInfo = await client.db("script").collection("internal").findOne({
+		dbInfo = await client.db("script").collection("internal").findOne({
 			key: key,
-		})),
-			(r = !1);
+		});
 	if (
 		(dbInfo &&
 			reqIP !== dbInfo.ip &&
@@ -48,7 +47,7 @@ async function checkKey(key, req) {
 	)
 		if (dbInfo.ip.length > 0 && !dbInfo.flexible)
 			if (dbInfo.ip[dbInfo.ip.length - 1]) if (dbInfo.ip[dbInfo.ip.length - 1] !== reqIP) return false;
-	return !!dbInfo && !r;
+	return !!dbInfo;
 }
 run().catch(console.dir),
 	app.post("/verify", async (e, res) => {
