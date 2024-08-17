@@ -1,0 +1,19 @@
+{
+  "name": "internal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cheat manager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "discord.js": "^14.15.3",
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "mongodb": "^6.8.0"
+  }
+}
